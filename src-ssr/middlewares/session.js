@@ -15,6 +15,7 @@ export default ssrMiddleware(({ app, resolve, render, serve }) => {
 
 	app.use('*', (req, res,next)=>{
 		app.set('serviceURL', `${req.protocol}://${req.headers.host}`);
+		console.log(req.app.get('serviceURL'));
 		console.log('session', req.session);
 		next();
 	})

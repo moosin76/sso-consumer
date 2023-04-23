@@ -25,6 +25,9 @@ module.exports = configure(function (ctx) {
 		boot: [
 			'i18n',
 			'axios',
+			{ path: 'socket', server: false },
+			{ path: 'auth-ssr', client: false },
+			{ path: 'auth-csr', server: false },
 		],
 
 		// https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-css
@@ -80,7 +83,7 @@ module.exports = configure(function (ctx) {
 				type: 'http'
 			},
 			host: 'ssocon.bnb.com',
-			port: 20200,
+			port: 20300,
 			open: true // opens browser window automatically
 		},
 
@@ -128,6 +131,7 @@ module.exports = configure(function (ctx) {
 
 			middlewares: [
 				'session',
+				'socket-id',
 				ctx.prod ? 'compression' : '',
 				'render' // keep this as last one
 			]
