@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
 import authApi from 'src/apis/authApi';
+import { socket } from 'boot/socket';
 
 export default defineStore('user', {
 	state: () => ({
-		socketId: null,
+		socketToken: null,
 		member: null,
 		accToken: null,
 	}),
@@ -24,10 +25,10 @@ export default defineStore('user', {
 			authApi.unsetHeaderToken();
 		},
 		async logout() {
-			const data = await authApi.logout(this.socketId);
+			const data = await authApi.logout(this.socketToken);
 			if (data) {
 				this.socketLogout();
-				socket.emit('sso:logout', this.socketId);
+				socket.emit('sso:logout', this.socketToken);
 			}
 		}
 	},

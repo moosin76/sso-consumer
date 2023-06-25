@@ -6,9 +6,9 @@ export default boot(async ({ app, ssrContext, store }) => {
 	const { req } = ssrContext;
 	console.log('auth ssr =>', req.session);
 	const userStore = useUser(store);
-	if (req.session.socketId) {
-		userStore.socketId = req.session.socketId;
-		const data = await ssoApi.post('/auth/auth', { socketId: userStore.socketId });
+	if (req.session.socketToken) {
+		userStore.socketToken = req.session.socketToken;
+		const data = await ssoApi.post('/auth/auth', { socketToken: userStore.socketToken });
 		if(data) {
 			userStore.member = data.member;
 			userStore.accToken = data.token;
